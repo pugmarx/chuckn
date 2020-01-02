@@ -1,9 +1,7 @@
 import json
-import requests
-import logging
 
-logger = logging.getLogger()
-logger.setLevel(logging.DEBUG)
+from botocore.vendored import requests
+
 
 def lambda_handler(event, context):
     URL = 'https://api.chucknorris.io/jokes/random?category=dev'

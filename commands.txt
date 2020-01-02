@@ -1,0 +1,11 @@
+aws s3 mb s3://samexample3
+
+sam package --template-file template.yaml --output-template-file package.yaml --s3-bucket samexample3
+
+sam deploy -t package.yaml --stack-name samchuckn --capabilities CAPABILITY_IAM
+
+curl https://6zf4mdeedj.execute-api.us-east-1.amazonaws.com/Prod/fact
+
+aws cloudformation describe-stacks --stack-name samchuckn --query "Stacks[0].Outputs[1].OutputValue"
+
+aws cloudformation delete-stack --stack-name samchuckn
