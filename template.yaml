@@ -1,0 +1,35 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  chuckN
+
+  SAM Template for chuckN
+
+Globals:
+  Function:
+    Timeout: 3
+
+Resources:
+  ChuckNorrisFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: lambda_code/
+      Handler: app.lambda_handler
+      Runtime: python3.7
+      Events:
+        GetFact:
+          Type: Api
+          Properties:
+            Path: /fact
+            Method: get
+
+Outputs:
+  ChuckNorrisApi:
+    Description: "API Gateway endpoint URL for Prod stage for Chuck Norris function"
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/hello/"
+  ChuckNorrisFunction:
+    Description: " Chuck Norris Lambda Function ARN"
+    Value: !GetAtt ChuckNorrisFunction.Arn
+  ChuckNorrisFunctionIamRole:
+    Description: "Implicit IAM Role created for Chuck Norris function"
+    Value: !GetAtt ChuckNorrisFunctionRole.Arn
